@@ -11,11 +11,17 @@
     v-bind="$attrs"
     @click="handleClick"
   >
-    <i :class="[icon, $slots.default ? 'el-icon--left' : null]" v-if="icon"></i>
+    <i
+      v-if="icon"
+      :class="icon"
+      :style="$slots.default ? { marginRight: '5px' } : null"></i>
 
     <slot></slot>
 
-    <i :class="[iconRight, $slots.default ? 'el-icon--right' : null]" v-if="iconRight"></i>
+    <i
+      v-if="iconRight"
+      :class="iconRight"
+      :style="iconRight ? { marginLeft: '5px' } : null"></i>
   </a>
 </template>
 
