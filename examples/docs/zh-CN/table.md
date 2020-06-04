@@ -1649,7 +1649,7 @@
 ### 合并行或列
 
 多行或多列共用一个数据时，可以合并行或列。
-:::demo 通过给`table`传入`span-method`方法可以实现合并行或列，方法的参数是一个对象，里面包含当前行`row`、当前列`column`、当前行号`rowIndex`、当前列号`columnIndex`四个属性。该函数可以返回一个包含两个元素的数组，第一个元素代表`rowspan`，第二个元素代表`colspan`。 也可以返回一个键名为`rowspan`和`colspan`的对象。
+:::demo 通过给`table`传入`span-method`方法可以实现合并行或列，方法的参数是一个对象，里面包含当前行`row`、当前列`column`、当前行号`rowIndex`、当前列号`columnIndex`四个属性。该函数可以返回一个包含两个元素的数组，第一个元素代表`rowspan`，第二个元素代表`colspan`。 也可以返回一个键名为`rowspan`和`colspan`的对象。设置`rowspan`后还可以给表格添加`no-hover`属性以防止高亮的行错乱。
 
 ```html
 <template>
@@ -1689,6 +1689,7 @@
       :data="tableData"
       :span-method="objectSpanMethod"
       border
+      no-hover
       style="width: 100%; margin-top: 20px">
       <el-table-column
         prop="id"
