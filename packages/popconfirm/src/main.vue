@@ -14,6 +14,7 @@
       ></i>
       {{title}}
     </p>
+    <slot />
     <div class="el-popconfirm__action">
       <el-button
         size="mini"
