@@ -155,7 +155,7 @@ export const BasePopper = {
             boundariesElement: this.boundariesElement || 'viewport'
           },
           computeStyle: {
-            gpuAcceleration: !isSafari()
+            gpuAcceleration: false
           }
         }
       }, this.popperOptions);
