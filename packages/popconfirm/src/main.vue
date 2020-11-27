@@ -87,12 +87,12 @@ export default {
   },
   methods: {
     confirm(e) {
-      this.visible = false;
       this.$emit('confirm', e);
+      if (!e.defaultPrevented) this.visible = false;
     },
     cancel(e) {
-      this.visible = false;
       this.$emit('cancel', e);
+      if (!e.defaultPrevented) this.visible = false;
     }
   }
 };

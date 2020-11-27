@@ -51,6 +51,29 @@ Popconfirm 的属性与 Popover 很类似，因此对于重复属性，请参考
 ```
 :::
 
+### 阻止弹窗关闭
+:::demo 可以通过调用 `e.preventDefault()` 阻止浮层关闭
+```html
+<template>
+<el-popconfirm
+  title="这是一段内容确定删除吗？"
+  @confirm="onConfirm"
+>
+  <el-button slot="reference">删除</el-button>
+</el-popconfirm>
+</template>
+<script>
+  export default {
+    methods: {
+      onConfirm(e) {
+        e.preventDefault();
+      }
+    }
+  }
+</script>
+```
+:::
+
 ### Attributes
 | 参数               | 说明                                                     | 类型              | 可选值      | 默认值 |
 |--------------------|----------------------------------------------------------|-------------------|-------------|--------|
