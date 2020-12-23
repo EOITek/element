@@ -5,15 +5,12 @@
   @include e(item) {
     font-size: $--select-font-size;
     padding: 0 20px;
-    position: relative;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     color: $--select-option-color;
     height: $--select-option-height;
     line-height: $--select-option-height;
     box-sizing: border-box;
     cursor: pointer;
+    display: flex;
 
     @include when(disabled) {
       color: $--select-option-disabled-color;
@@ -31,6 +28,13 @@
     &.selected {
       color: $--select-option-selected-font-color;
       font-weight: bold;
+    }
+
+    > .el-select-dropdown__item-label {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex: 1;
     }
   }
 }

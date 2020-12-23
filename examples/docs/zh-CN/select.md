@@ -362,8 +362,8 @@
       :key="item.value"
       :label="item.label"
       :value="item.value">
-      <span style="float: left">{{ item.label }}</span>
-      <span style="float: right; color: #8492a6; font-size: 13px">{{ item.value }}</span>
+      <span style="flex: 1">{{ item.label }}</span>
+      <span style="color: #8492a6; font-size: 13px">{{ item.value }}</span>
     </el-option>
   </el-select>
 </template>

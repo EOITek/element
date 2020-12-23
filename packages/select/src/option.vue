@@ -11,7 +11,7 @@
       'hover': hover
     }">
     <slot>
-      <span>{{ currentLabel }}</span>
+      <span class="el-select-dropdown__item-label">{{ currentLabel }}</span>
     </slot>
   </li>
 </template>
