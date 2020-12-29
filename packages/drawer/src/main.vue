@@ -17,7 +17,7 @@
           :aria-label="title"
           class="el-drawer"
           :class="[direction, customClass]"
-          :style="isHorizontal ? `width: ${size}` : `height: ${size}`"
+          :style="drawerStyle"
           ref="drawer"
           role="dialog"
           >
@@ -37,6 +37,19 @@
           <section class="el-drawer__body" ref="body" v-if="rendered">
             <slot></slot>
           </section>
+          <div
+            class="el-drawer-drag"
+            :class="direction"
+            @mousedown="handleMousedown"
+            v-if="resizable"
+            ref="resizable"
+            >
+            <slot name="resizable">
+              <div class="el-drawer-drag-move-trigger">
+                <i v-for="i in 5" :key="i"></i>
+              </div>
+            </slot>
+          </div>
         </div>
       </div>
     </div>
@@ -112,16 +125,36 @@ export default {
     focusFirst: {
       type: Boolean,
       default: true
+    },
+    resizable: {
+      type: Boolean,
+      default: false
+    },
+    maxSize: {
+      type: String,
+      default: 'calc(100% - 8px)'
+    },
+    minSize: {
+      type: String
     }
   },
   computed: {
     isHorizontal() {
       return this.direction === 'rtl' || this.direction === 'ltr';
+    },
+    drawerStyle() {
+      const { isHorizontal, maxSize, minSize, drawerSize } = this;
+      return {
+        [isHorizontal ? 'width' : 'height']: drawerSize,
+        [isHorizontal ? 'maxWidth' : 'maxHeight']: maxSize,
+        [isHorizontal ? 'minWidth' : 'minHeight']: minSize
+      };
     }
   },
   data() {
     return {
-      closed: false
+      closed: false,
+      drawerSize: ''
     };
   },
   watch: {
@@ -156,6 +189,13 @@ export default {
     afterLeave() {
       this.$emit('closed');
     },
+    init() {
+      this.drawerSize = this.size;
+      if (this.resizable) {
+        window.addEventListener('mousemove', this.handleMouseMove);
+        window.addEventListener('mouseup', this.handleMouseUp);
+      }
+    },
     hide(cancel) {
       if (cancel !== false) {
         this.$emit('update:visible', false);
@@ -183,9 +223,28 @@ export default {
       // pressing `ESC` will call this method, and also close the drawer.
       // This method also calls `beforeClose` if there was one.
       this.closeDrawer();
+    },
+    handleMousedown(event) {
+      if (event.button) return;
+      this.dragging = true;
+    },
+    handleMouseMove(event) {
+      if (!this.dragging) return;
+      let drawerSize;
+      if (this.isHorizontal) {
+        drawerSize = this.direction === 'ltr' ? event.clientX : windown.innerWidth - event.clientX;
+      } else {
+        drawerSize = this.direction === 'ttb' ? event.clientY : windown.innerHeight - event.clientY;
+      }
+      this.drawerSize = `${drawerSize}px`;
+      this.$emit('resize', drawerSize);
+    },
+    handleMouseUp() {
+      this.dragging = false;
     }
   },
   mounted() {
+    this.init();
     if (this.visible) {
       this.rendered = true;
       this.open();
@@ -195,6 +254,10 @@ export default {
     // if appendToBody is true, remove DOM node after destroy
     if (this.appendToBody && this.$el && this.$el.parentNode) {
       this.$el.parentNode.removeChild(this.$el);
+    }
+    if (this.resizable) {
+      window.removeEventListener('mousemove', this.handleMouseMove);
+      window.removeEventListener('mouseup', this.handleMouseUp);
     }
   }
 };

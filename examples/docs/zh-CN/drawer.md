@@ -247,6 +247,49 @@ export default {
 ```
 :::
 
+### 拖拽改变窗体大小
+
+`Drawer` 组件可以指定resizable拖拽改变窗体大小，可以设置maxSize、minSize，限制窗体大小
+
+:::demo
+
+```html
+
+<el-radio-group v-model="direction">
+  <el-radio label="ltr">从左往右开</el-radio>
+  <el-radio label="rtl">从右往左开</el-radio>
+  <el-radio label="ttb">从上往下开</el-radio>
+  <el-radio label="btt">从下往上开</el-radio>
+</el-radio-group>
+
+<el-button @click="drawer = true" type="primary" style="margin-left: 16px;">
+  点我打开
+</el-button>
+
+<el-drawer
+  title="我是外面的 Drawer"
+  :visible.sync="drawer"
+  :direction="direction"
+  :wrapperClosable="false"
+  :resizable="true"
+  min-size="200px">
+  <span>我来啦!</span>
+</el-drawer>
+
+<script>
+  export default {
+    data() {
+      return {
+        drawer: false,
+        direction: 'rtl',
+      };
+    }
+  };
+</script>
+
+```
+:::
+
 :::tip
 
 Drawer 的内容是懒渲染的，即在第一次被打开之前，传入的默认 slot 不会被渲染到 DOM 上。因此，如果需要执行 DOM 操作，或通过 `ref` 获取相应组件，请在 `open` 事件回调中进行。
@@ -284,6 +327,9 @@ Drawer 提供一个 `destroyOnClose` API, 用来在关闭 Drawer 时销毁子组
 | wrapperClosable | 点击遮罩层是否可以关闭 Drawer | boolean | - | true |
 | withHeader | 控制是否显示 header 栏, 默认为 true, 当此项为 false 时, title attribute 和 title slot 均不生效 | boolean | - | true |
 | focus-first | 控制是否默认给第一个可获取焦点的元素设置焦点 | boolean | - | true |
+| resizable | 是否开启拖拽改变列宽功能 | boolean | - | false |
+| maxSize | Drawer 窗体的最大大小，CSS length | string | - | 'calc(100% - 8px)' |
+| minSize | Drawer 窗体的最小大小，CSS length | string | - | - |
 
 ### Drawer Slot
 
@@ -291,6 +337,7 @@ Drawer 提供一个 `destroyOnClose` API, 用来在关闭 Drawer 时销毁子组
 |------|--------|
 | — | Drawer 的内容 |
 | title | Drawer 标题区的内容 |
+| resizable | Drawer 拖拽句柄 |
 
 ### Drawer Methods
 
@@ -306,3 +353,4 @@ Drawer 提供一个 `destroyOnClose` API, 用来在关闭 Drawer 时销毁子组
 | opened  | Drawer 打开动画结束时的回调 | — |
 | close  | Drawer 关闭的回调 | — |
 | closed | Drawer 关闭动画结束时的回调 | — |
+| resize | Drawer 窗体大小改变时的回调 | drawerSize: 窗体大小 |
