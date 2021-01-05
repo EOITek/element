@@ -232,9 +232,9 @@ export default {
       if (!this.dragging) return;
       let drawerSize;
       if (this.isHorizontal) {
-        drawerSize = this.direction === 'ltr' ? event.clientX : windown.innerWidth - event.clientX;
+        drawerSize = this.direction === 'ltr' ? event.clientX : window.innerWidth - event.clientX;
       } else {
-        drawerSize = this.direction === 'ttb' ? event.clientY : windown.innerHeight - event.clientY;
+        drawerSize = this.direction === 'ttb' ? event.clientY : window.innerHeight - event.clientY;
       }
       this.drawerSize = `${drawerSize}px`;
       this.$emit('resize', drawerSize);
