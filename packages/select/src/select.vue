@@ -9,14 +9,16 @@
       v-if="multiple"
       ref="tags"
       :style="{ 'max-width': inputWidth - 32 + 'px', width: '100%' }">
-      <span v-if="collapseTags && selected.length">
+      <template v-if="collapseTags && selected.length">
         <el-tag
           :closable="!selectDisabled"
           :size="collapseTagSize"
           :hit="selected[0].hitState"
           type="info"
           @close="deleteTag($event, selected[0])"
-          disable-transitions>
+          disable-transitions
+          class="collapse-tags"
+          :class="{ filterable }">
           <span class="el-select__tags-text">{{ selected[0].currentLabel }}</span>
         </el-tag>
         <el-tag
@@ -27,8 +29,8 @@
           disable-transitions>
           <span class="el-select__tags-text">+ {{ selected.length - 1 }}</span>
         </el-tag>
-      </span>
-      <transition-group @after-leave="resetInputHeight" v-if="!collapseTags">
+      </template>
+      <template v-else-if="!collapseTags">
         <el-tag
           v-for="item in selected"
           :key="getValueKey(item)"
@@ -40,7 +42,7 @@
           disable-transitions>
           <span class="el-select__tags-text">{{ item.currentLabel }}</span>
         </el-tag>
-      </transition-group>
+      </template>
 
       <input
         type="text"

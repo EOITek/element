@@ -93,10 +93,10 @@
 
 @include b(tag) {
   @include genTheme(10%, 20%, 100%, 100%);
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   height: 32px;
   padding: $--tag-padding;
-  line-height: 30px;
   font-size: $--tag-font-size;
   color: $--tag-primary-color;
   border-width: 1px;
@@ -114,9 +114,8 @@
     height: 16px;
     width: 16px;
     line-height: 16px;
-    vertical-align: middle;
-    top: -1px;
-    right: -5px;
+    margin: 1px -5px 0 5px;
+    flex-shrink: 0;
 
     &::before {
       display: block;
@@ -133,7 +132,6 @@
 
   @include m(medium) {
     height: 28px;
-    line-height: 26px;
 
     .el-icon-close {
       transform: scale(.8);
@@ -143,7 +141,6 @@
   @include m(small) {
     height: 24px;
     padding: 0 8px;
-    line-height: 22px;
 
     .el-icon-close {
       transform: scale(.8);
@@ -153,10 +150,9 @@
   @include m(mini) {
     height: 20px;
     padding: 0 5px;
-    line-height: 19px;
 
     .el-icon-close {
-      margin-left: -3px;
+      margin-left: 2px;
       transform: scale(.7);
     }
   }

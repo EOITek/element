@@ -267,13 +267,13 @@
           label: '双皮奶'
         }, {
           value: '选项3',
-          label: '蚵仔煎'
+          label: '蚵仔煎蚵仔煎蚵仔煎'
         }, {
           value: '选项4',
-          label: '龙须面'
+          label: '龙须面龙须面龙须面龙须面龙须面龙须面龙须面'
         }, {
           value: '选项5',
-          label: '北京烤鸭'
+          label: '北京烤鸭北京烤鸭北京烤鸭北京烤鸭北京烤鸭'
         }],
         value1: [],
         value2: []
@@ -473,6 +473,14 @@
       :value="item.value">
     </el-option>
   </el-select>
+  <el-select v-model="value2" multiple filterable collapse-tags placeholder="请选择">
+    <el-option
+      v-for="item in options"
+      :key="item.value"
+      :label="item.label"
+      :value="item.value">
+    </el-option>
+  </el-select>
 </template>
 
 <script>
@@ -487,15 +495,16 @@
           label: '双皮奶'
         }, {
           value: '选项3',
-          label: '蚵仔煎'
+          label: '蚵仔煎蚵仔煎蚵仔煎'
         }, {
           value: '选项4',
-          label: '龙须面'
+          label: '龙须面龙须面龙须面龙须面龙须面'
         }, {
           value: '选项5',
-          label: '北京烤鸭'
+          label: '北京烤鸭北京烤鸭北京烤鸭北京烤鸭北京烤鸭北京烤鸭'
         }],
-        value: ''
+        value: '',
+        value2: []
       }
     }
   }

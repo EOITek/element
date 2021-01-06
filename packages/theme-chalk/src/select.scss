@@ -12,11 +12,6 @@
   display: inline-block;
   position: relative;
 
-  .el-select__tags
-    >span {
-      display: contents;
-    }
-
   &:hover {
     .el-input__inner {
       border-color: $--select-border-color-hover;
@@ -127,21 +122,33 @@
     box-sizing: border-box;
     border-color: transparent;
     margin: 2px 0 2px 6px;
+    padding-bottom: 1px;
     background-color: #f0f2f5;
+    max-width: 100%;
+
+    .el-select__tags-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      flex: 1;
+    }
+
+    &.collapse-tags {
+      max-width: calc(100% - 50px);
+
+      &.filterable {
+        max-width: calc(100% - 70px);
+      }
+    }
 
     &__close.el-icon-close {
       background-color: $--color-text-placeholder;
-      right: -7px;
-      top: 0;
+      margin-top: 0;
+      margin-right: 0;
       color: $--color-white;
 
       &:hover {
         background-color: $--color-text-secondary;
-      }
-
-      &::before {
-        display: block;
-        transform: translate(0, .5px);
       }
     }
   }
